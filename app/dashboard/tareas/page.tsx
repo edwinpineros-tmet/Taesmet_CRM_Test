@@ -3,13 +3,22 @@
 import React, { useState } from "react";
 import styles from "../page.module.css";
 import { Calendar as CalendarIcon, Clock, CheckCircle } from "lucide-react";
+import Modal from "@/components/Modal";
+import TaskForm from "@/components/forms/TaskForm";
 
 export default function TasksPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [scheduledTasks] = useState([
     { id: 1, type: "Llamada", title: "Seguimiento Cotización", date: "Hoy, 14:00", contact: "Carlos Martínez" },
     { id: 2, type: "Reunión Presencial", title: "Presentación de producto", date: "Mañana, 09:30", contact: "Ingeniería ABC" },
     { id: 3, type: "Correo", title: "Envío de catálogo estrcuturas", date: "Jueves, 11:00", contact: "Constructora Alfa" },
   ]);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    alert("Actividad registrada exitosamente");
+    // TODO: Refresh data
+  };
 
   return (
     <div className={styles.container}>
@@ -18,7 +27,12 @@ export default function TasksPage() {
           <h1 className={styles.title}>Tareas y Actividades</h1>
           <p className={styles.subtitle}>Registro de actividades y seguimientos de negocios</p>
         </div>
-        <button className={styles.primaryButton}>+ Programar Tarea</button>
+        <button 
+          className={styles.primaryButton}
+          onClick={() => setIsModalOpen(true)}
+        >
+          + Programar Tarea
+        </button>
       </header>
 
       <div className={styles.mainGrid}>
@@ -74,6 +88,14 @@ export default function TasksPage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Programar Nueva Tarea"
+      >
+        <TaskForm onSuccess={handleSuccess} />
+      </Modal>
     </div>
   );
 }
