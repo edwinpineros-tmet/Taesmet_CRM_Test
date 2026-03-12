@@ -13,7 +13,6 @@ import {
   X
 } from "lucide-react";
 import styles from "./layout.module.css";
-// Añadimos useEffect a la importación
 import React, { useState, useEffect } from "react";
 
 export default function DashboardLayout({
@@ -25,7 +24,7 @@ export default function DashboardLayout({
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // --- NUEVO: Estado para saber si ya validamos su rol en la BD ---
+  // --- Estado para saber si ya validamos su rol en la BD ---
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
@@ -38,18 +37,20 @@ export default function DashboardLayout({
         return;
       }
 
-      // 1. Usamos "estado" e "id" en minúsculas para coincidir con PostgreSQL
+      // 1. Usamos "usuarios" y traemos el estado
       const { data: perfil, error } = await supabase
         .from("usuarios")
         .select("estado")
         .eq("id", user.id)
         .single();
 
-      // Añadimos un console.log para que puedas ver qué trae exactamente
-      console.log("Datos del perfil:", perfil);
+      // 2. LA CORRECCIÓN: Le decimos a TypeScript exactamente qué forma tiene esta data
+      const datosPerfil = perfil as { estado: string | null } | null;
 
-      // 2. Comparamos con la propiedad en minúscula
-      if (perfil?.estado === "Inactivo") {
+      console.log("Datos del perfil:", datosPerfil);
+
+      // 3. Evaluamos la propiedad usando la variable tipada
+      if (datosPerfil?.estado === "Inactivo") {
         router.push("/pendiente");
       } else {
         setIsAuthorized(true);
@@ -60,7 +61,6 @@ export default function DashboardLayout({
   }, [router]);
 
   // Mientras verificamos en la base de datos, mostramos una pantalla de carga
-  // Esto evita que vean información confidencial por un segundo antes de ser redirigidos
   if (!isAuthorized) {
     return (
       <div style={{ display: 'flex', height: '100vh', width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f3f4f6', color: '#121e46', fontFamily: 'sans-serif' }}>
@@ -68,7 +68,6 @@ export default function DashboardLayout({
       </div>
     );
   }
-  // ---------------------------------------------------------------
 
   const navigation = [
     { name: "Inicio", href: "/dashboard", icon: LayoutDashboard },

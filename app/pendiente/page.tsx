@@ -16,8 +16,9 @@ export default async function SalaDeEspera() {
         .select("estado")
         .eq("id", user.id)
         .single();
+    const datosPerfil = perfil as { estado: string | null } | null;
 
-    if (perfil?.estado === "Activo") {
+    if (datosPerfil?.estado === "Activo") {
         redirect("/dashboard");
     }
 

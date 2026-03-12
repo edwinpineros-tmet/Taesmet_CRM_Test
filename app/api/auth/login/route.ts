@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createServerClient } from '@supabase/ssr';
+// 1. Añadimos "type CookieOptions" a la importación de Supabase
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
@@ -14,7 +15,8 @@ export async function GET(request: Request) {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        // 2. Definimos la estructura exacta que TypeScript está pidiendo
+        setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
           cookiesToSet.forEach(({ name, value, options }) =>
             cookieStore.set(name, value, options)
           );
