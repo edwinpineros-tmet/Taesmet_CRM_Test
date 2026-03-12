@@ -47,6 +47,9 @@ export default function DealForm({ onSuccess }: DealFormProps) {
       if (!formData.clienteAsociado) throw new Error("Debes seleccionar un cliente");
 
       const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No autenticado");
+
       const { error: insertError } = await supabase.from("oportunidades").insert({
         titulonegocio: formData.tituloNegocio,
         clienteasociado: parseInt(formData.clienteAsociado, 10),
@@ -55,7 +58,8 @@ export default function DealForm({ onSuccess }: DealFormProps) {
         nivelinteres: formData.nivelInteres,
         montoestimado: formData.montoEstimado ? parseFloat(formData.montoEstimado) : null,
         paisdestinoventa: formData.paisDestino,
-        ciudaddestinoventa: formData.ciudadDestino
+        ciudaddestinoventa: formData.ciudadDestino,
+        propietariocuenta: user.id
       } as any);
 
       if (insertError) {
