@@ -54,7 +54,7 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
         tipointeraccion: formData.tipoInteraccion,
         fechahora: formData.fechaHora ? new Date(formData.fechaHora).toISOString() : null,
         notas: formData.notas,
-        fechaproxsimoseguimiento: formData.fechaProximo ? new Date(formData.fechaProximo).toISOString() : null
+        fechaproximoseguimiento: formData.fechaProximo ? new Date(formData.fechaProximo).toISOString() : null
       } as any);
 
       if (insertError) {

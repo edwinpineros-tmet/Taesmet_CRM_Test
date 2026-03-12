@@ -43,11 +43,11 @@ export default function DashboardPage() {
           tipointeraccion,
           fechahora,
           notas,
-          fechaproxsimoseguimiento,
+          fechaproximoseguimiento,
           oportunidades(titulonegocio, clientes(razonsocial))
         `)
-        .gte('fechaproxsimoseguimiento', new Date().toISOString())
-        .order('fechaproxsimoseguimiento', { ascending: true })
+        .gte('fechaproximoseguimiento', new Date().toISOString())
+        .order('fechaproximoseguimiento', { ascending: true })
         .limit(5);
 
       if (activities) setNextActivities(activities);
@@ -154,19 +154,19 @@ export default function DashboardPage() {
               <div className={styles.activitiesCard}>
                 <h3 className={styles.activitiesTitle}>Próximas Actividades</h3>
                 <div className={styles.activitiesList}>
-                  {nextActivities.length > 0 ? nextActivities.map(activity => (
-                    <div key={activity.IdActividad} className={styles.activityItem}>
-                      <div className={styles.activityIcon}>
-                        <Clock size={20} color="#f59e0b" />
-                      </div>
-                      <div className={styles.activityInfo}>
-                        <h4>{activity.Oportunidades?.TituloNegocio || 'Sin Negocio'}</h4>
-                        <p>{activity.TipoInteraccion} - {new Date(activity.FechaProximoSeguimiento).toLocaleDateString()}</p>
-                      </div>
-                    </div>
-                  )) : (
-                    <p className={styles.emptyState}>No hay actividades programadas.</p>
-                  )}
+              {nextActivities.length > 0 ? nextActivities.map(activity => (
+                <div key={activity.idactividad} className={styles.activityItem}>
+                  <div className={styles.activityIcon}>
+                    <Clock size={20} color="#f59e0b" />
+                  </div>
+                  <div className={styles.activityInfo}>
+                    <h4>{activity.oportunidades?.titulonegocio || 'Sin Negocio'}</h4>
+                    <p>{activity.tipointeraccion} - {new Date(activity.fechaproximoseguimiento).toLocaleDateString()}</p>
+                  </div>
+                </div>
+              )) : (
+                <p className={styles.emptyState}>No hay actividades programadas.</p>
+              )}
                 </div>
               </div>
             </div>
