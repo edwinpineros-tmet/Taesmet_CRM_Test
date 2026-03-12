@@ -17,8 +17,6 @@ export default function ClientForm({ onSuccess }: ClientFormProps) {
     razonSocial: "",
     tipoCliente: "Empresa",
     codigoCliente: "",
-    paisDestino: "",
-    ciudadDestino: "",
     sectorCiiu: "",
     emailContacto: "",
   });
@@ -44,8 +42,6 @@ export default function ClientForm({ onSuccess }: ClientFormProps) {
         razonsocial: formData.razonSocial,
         tipocliente: formData.tipoCliente,
         codigocliente: formData.codigoCliente ? parseInt(formData.codigoCliente, 10) : null,
-        paisdestinoventa: formData.paisDestino,
-        ciudaddestinoventa: formData.ciudadDestino,
         sectorciiu: formData.sectorCiiu,
         emailcontactocuenta: formData.emailContacto,
         propietariocuenta: user.id
@@ -135,34 +131,6 @@ export default function ClientForm({ onSuccess }: ClientFormProps) {
             type="text"
             className={styles.input}
             value={formData.sectorCiiu}
-            onChange={handleChange}
-            disabled={loading}
-          />
-        </div>
-      </div>
-
-      <div className={styles.row}>
-        <div className={styles.group}>
-          <label className={styles.label} htmlFor="paisDestino">País Destino</label>
-          <input
-            id="paisDestino"
-            name="paisDestino"
-            type="text"
-            className={styles.input}
-            value={formData.paisDestino}
-            onChange={handleChange}
-            disabled={loading}
-          />
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label} htmlFor="ciudadDestino">Ciudad Destino</label>
-          <input
-            id="ciudadDestino"
-            name="ciudadDestino"
-            type="text"
-            className={styles.input}
-            value={formData.ciudadDestino}
             onChange={handleChange}
             disabled={loading}
           />

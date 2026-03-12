@@ -16,8 +16,6 @@ CREATE TABLE Clientes (
     RazonSocial TEXT,
     TipoCliente TEXT CHECK (TipoCliente IN ('Empresa', 'Persona')),
     CodigoCliente INTEGER UNIQUE,
-    PaisDestinoVenta TEXT,
-    CiudadDestinoVenta TEXT,
     SectorCIIU TEXT,
     PropietarioCuenta UUID REFERENCES Usuarios(id),
     EmailContactoCuenta TEXT,
@@ -51,6 +49,8 @@ CREATE TABLE Oportunidades (
     )),
     NivelInteres TEXT CHECK (NivelInteres IN ('Alto', 'Medio', 'Bajo')),
     MontoEstimado DECIMAL(15, 2),
+    PaisDestinoVenta TEXT,
+    CiudadDestinoVenta TEXT,
     FechaCreacionOportunidad TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ClienteAsociado) REFERENCES Clientes(NIT)
 );

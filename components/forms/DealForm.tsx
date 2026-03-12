@@ -20,6 +20,8 @@ export default function DealForm({ onSuccess }: DealFormProps) {
     etapa: "1. Prospección",
     nivelInteres: "Medio",
     montoEstimado: "",
+    paisDestino: "",
+    ciudadDestino: "",
   });
 
   useEffect(() => {
@@ -51,7 +53,9 @@ export default function DealForm({ onSuccess }: DealFormProps) {
         departamento: formData.departamento,
         etapa: formData.etapa,
         nivelinteres: formData.nivelInteres,
-        montoestimado: formData.montoEstimado ? parseFloat(formData.montoEstimado) : null
+        montoestimado: formData.montoEstimado ? parseFloat(formData.montoEstimado) : null,
+        paisdestinoventa: formData.paisDestino,
+        ciudaddestinoventa: formData.ciudadDestino
       } as any);
 
       if (insertError) {
@@ -169,6 +173,34 @@ export default function DealForm({ onSuccess }: DealFormProps) {
             onChange={handleChange}
             disabled={loading}
             placeholder="Ej: 5000000"
+          />
+        </div>
+      </div>
+
+      <div className={styles.row}>
+        <div className={styles.group}>
+          <label className={styles.label} htmlFor="paisDestino">País Destino Venta</label>
+          <input
+            id="paisDestino"
+            name="paisDestino"
+            type="text"
+            className={styles.input}
+            value={formData.paisDestino}
+            onChange={handleChange}
+            disabled={loading}
+          />
+        </div>
+
+        <div className={styles.group}>
+          <label className={styles.label} htmlFor="ciudadDestino">Ciudad Destino Venta</label>
+          <input
+            id="ciudadDestino"
+            name="ciudadDestino"
+            type="text"
+            className={styles.input}
+            value={formData.ciudadDestino}
+            onChange={handleChange}
+            disabled={loading}
           />
         </div>
       </div>
