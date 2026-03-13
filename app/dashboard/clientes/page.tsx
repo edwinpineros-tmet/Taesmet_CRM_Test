@@ -23,21 +23,45 @@ export default function ClientsPage() {
   const { userId, isLeader, loading: roleLoading } = useUserRole();
 
   const fetchClientes = useCallback(async () => {
-    if (roleLoading || !userId) return;
+    // --- 1. RASTREADOR DE ROLES ---
+    console.log("🛠️ DIAGNÓSTICO DE ROLES:", { userId, isLeader, roleLoading });
+
+    if (roleLoading) {
+      console.log("⏳ Esperando a que el hook termine de cargar el rol...");
+      return;
+    }
+
+    if (!userId) {
+      console.log("❌ No se encontró userId. Abortando búsqueda.");
+      return;
+    }
+
     setLoading(true);
     const supabase = createClient();
+
     let query = supabase
       .from("clientes")
       .select("nit, razonsocial, tipocliente, emailcontactocuenta, fechacreacioncliente")
       .order("razonsocial");
 
+    // Lógica de filtrado
     if (!isLeader) {
+      console.log("👤 Rol Vendedor: Filtrando clientes por propietario:", userId);
       query = query.eq("propietariocuenta", userId);
+    } else {
+      console.log("👑 Rol Líder/Admin: Solicitando TODOS los clientes.");
     }
 
     const { data, error } = await query;
-    if (error) console.error("Error cargando clientes:", error);
-    else setClientes((data as Cliente[]) || []);
+
+    // --- 2. RASTREADOR DE DATOS DE SUPABASE ---
+    console.log("📦 RESPUESTA DE SUPABASE:", { data, error });
+
+    if (error) {
+      console.error("Error cargando clientes:", error);
+    } else {
+      setClientes((data as Cliente[]) || []);
+    }
     setLoading(false);
   }, [userId, isLeader, roleLoading]);
 

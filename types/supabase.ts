@@ -16,36 +16,30 @@ export type Database = {
     Tables: {
       clientes: {
         Row: {
-          ciudaddestinoventa: string | null
           codigocliente: number | null
           emailcontactocuenta: string | null
           fechacreacioncliente: string | null
           nit: number
-          paisdestinoventa: string | null
           propietariocuenta: string | null
           razonsocial: string | null
           sectorciiu: string | null
           tipocliente: string | null
         }
         Insert: {
-          ciudaddestinoventa?: string | null
           codigocliente?: number | null
           emailcontactocuenta?: string | null
           fechacreacioncliente?: string | null
           nit: number
-          paisdestinoventa?: string | null
           propietariocuenta?: string | null
           razonsocial?: string | null
           sectorciiu?: string | null
           tipocliente?: string | null
         }
         Update: {
-          ciudaddestinoventa?: string | null
           codigocliente?: number | null
           emailcontactocuenta?: string | null
           fechacreacioncliente?: string | null
           nit?: number
-          paisdestinoventa?: string | null
           propietariocuenta?: string | null
           razonsocial?: string | null
           sectorciiu?: string | null
@@ -142,6 +136,7 @@ export type Database = {
       }
       oportunidades: {
         Row: {
+          ciudaddestinoventa: string | null
           clienteasociado: number | null
           departamento: string | null
           etapa: string | null
@@ -149,9 +144,12 @@ export type Database = {
           idoportunidad: number
           montoestimado: number | null
           nivelinteres: string | null
+          paisdestinoventa: string | null
+          propietariocuenta: string | null
           titulonegocio: string | null
         }
         Insert: {
+          ciudaddestinoventa?: string | null
           clienteasociado?: number | null
           departamento?: string | null
           etapa?: string | null
@@ -159,9 +157,12 @@ export type Database = {
           idoportunidad?: number
           montoestimado?: number | null
           nivelinteres?: string | null
+          paisdestinoventa?: string | null
+          propietariocuenta?: string | null
           titulonegocio?: string | null
         }
         Update: {
+          ciudaddestinoventa?: string | null
           clienteasociado?: number | null
           departamento?: string | null
           etapa?: string | null
@@ -169,6 +170,8 @@ export type Database = {
           idoportunidad?: number
           montoestimado?: number | null
           nivelinteres?: string | null
+          paisdestinoventa?: string | null
+          propietariocuenta?: string | null
           titulonegocio?: string | null
         }
         Relationships: [
@@ -178,6 +181,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "clientes"
             referencedColumns: ["nit"]
+          },
+          {
+            foreignKeyName: "oportunidades_propietariocuenta_fkey"
+            columns: ["propietariocuenta"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
           },
         ]
       }
