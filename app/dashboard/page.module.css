@@ -14,7 +14,7 @@
 }
 
 .title {
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
@@ -79,7 +79,7 @@
 }
 
 .activitiesTitle {
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
